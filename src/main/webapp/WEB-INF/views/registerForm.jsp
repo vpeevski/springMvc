@@ -1,20 +1,23 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
+<%@ taglib prefix="st" uri="http://www.springframework.org/tags"%>
 <%@ page session="false" %>
 <html>
 <head>
 <title>Registration</title>
+<st:url value="/resources/css/layout.css" var="layoutCss" />
 <link rel="stylesheet" type="text/css"
-href="<c:url value="/resources/style.css" />" >
+href="<c:url value="/resources/style.css" />
+<link href="${layoutCss}" rel="stylesheet" />
 </head>
 <body>
 <h1>Register</h1>
-<form method="POST">
-First Name: <input type="text" value="<%=request.getParameter("firstName") != null ? request.getParameter("firstName") : "" %>" name="firstName" /> <span> <c:out value="${firstNameError}" /> </span> <br/> 
-Last Name: <input type="text" name="lastName" /><br/>
-Username: <input type="text" name="userName" /><br/>
-Password: <input type="password" name="password" /><br/>
+<sf:form method="POST" commandName="user">
+First Name: <sf:input path="firstName" /> <sf:errors path="firstName" cssClass="error"/> <br/> 
+Last Name: <sf:input path="lastName" /><br/>
+Username: <sf:input path="userName" /><br/>
+Password: <sf:password path="password" /><br/>
 
 <input type="submit" value="Register" />
-</form>
+</sf:form>
 </body>
 </html>

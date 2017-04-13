@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,16 +26,14 @@ public class RegController {
 	}
 
 	@RequestMapping(value = "/register", method = GET)
-	public String registerForm() {
+	public String registerForm(Model model) {
+		model.addAttribute(new User());
 		return "registerForm";
 	}
 
 	@RequestMapping(value = "/register", method = POST)
 	public String register(@Valid User user, Errors errors, ModelMap model) {
 		if (errors.hasErrors()) {
-			if (errors.getFieldError("firstName") != null) {
-				model.addAttribute("firstNameError", errors.getFieldError("firstName").getDefaultMessage());
-			}
 			return "registerForm";
 		}
 		userRepo.addUser(user);
