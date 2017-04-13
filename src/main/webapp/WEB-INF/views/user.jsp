@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="st" uri="http://www.springframework.org/tags"%>
 <%@ page session="false" %>
 <html>
 <head>
@@ -7,7 +8,7 @@
 href="<c:url value="/resources/style.css" />" >
 </head>
 <body>
-<h1>User Details </h1>
+<h1><st:message code="profile"/> </h1>
 <div class="spittleView">
 <div class="spittleMessage"><c:out value="${user.firstName}" /></div>
 <div>

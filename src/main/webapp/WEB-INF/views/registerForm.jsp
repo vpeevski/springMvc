@@ -12,7 +12,7 @@ href="<c:url value="/resources/style.css" />
 <body>
 <h1>Register</h1>
 <sf:form method="POST" commandName="user">
-First Name: <sf:input path="firstName" /> <sf:errors path="firstName" cssClass="error"/> <br/> 
+<sf:label path="firstName" cssErrorClass="error"> <st:message code="user.firstName"/> </sf:label> <sf:input path="firstName" /> <sf:errors path="firstName" cssClass="error"/> <br/> 
 Last Name: <sf:input path="lastName" /><br/>
 Username: <sf:input path="userName" /><br/>
 Password: <sf:password path="password" /><br/>

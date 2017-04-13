@@ -23,7 +23,7 @@ public class User {
 	}
 
 	@NotNull
-	@Size(min=5, max=16)
+	@Size(min=5, max=16, message="{firstName.size}")
 	public String getFirstName() {
 		return firstName;
 	}

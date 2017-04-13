@@ -3,6 +3,8 @@ package discoverita.example.web;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class RegController {
 	}
 
 	@RequestMapping(value = "/register", method = GET)
-	public String registerForm(Model model) {
+	public String registerForm(Locale locale, Model model) {
 		model.addAttribute(new User());
 		return "registerForm";
 	}
