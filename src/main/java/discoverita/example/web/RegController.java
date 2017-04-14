@@ -3,8 +3,10 @@ package discoverita.example.web;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.io.IOException;
 import java.util.Locale;
 
+import javax.servlet.http.Part;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,12 @@ public class RegController {
 	}
 
 	@RequestMapping(value = "/register", method = POST)
-	public String register(@RequestPart("profilePicture") byte[] profilePicture, @Valid User user, Errors errors, ModelMap model) {
+	public String register(@RequestPart("profilePicture") Part profilePicture, @Valid User user, Errors errors, ModelMap model) throws IOException {
 		if (errors.hasErrors()) {
 			return "registerForm";
 		}
+		
+		profilePicture.write("/" + profilePicture.getSubmittedFileName());
 		userRepo.addUser(user);
 		return "redirect:/users/" + user.getUserName();
 	}
