@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 
 import discoverita.example.repository.UserRepositoryInterface;
 import discoverita.example.user.User;
@@ -34,7 +35,7 @@ public class RegController {
 	}
 
 	@RequestMapping(value = "/register", method = POST)
-	public String register(@Valid User user, Errors errors, ModelMap model) {
+	public String register(@RequestPart("profilePicture") byte[] profilePicture, @Valid User user, Errors errors, ModelMap model) {
 		if (errors.hasErrors()) {
 			return "registerForm";
 		}
