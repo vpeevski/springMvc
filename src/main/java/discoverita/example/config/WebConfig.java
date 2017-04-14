@@ -6,6 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
+@PropertySource("classpath:app.properties")
 @ComponentScan(basePackages = { "discoverita.example.web", "discoverita.example.repository" })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
@@ -35,7 +37,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename("/i18n/messages");
+		messageSource.setBasename("classpath:i18n/messages");
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}
