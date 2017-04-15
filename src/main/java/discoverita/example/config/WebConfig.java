@@ -3,12 +3,16 @@ package discoverita.example.config;
 import java.io.IOException;
 import java.util.Locale;
 
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
@@ -98,9 +102,26 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		templateResolver.setTemplateMode("HTML5");
 		return templateResolver;
 	}
-	
+
 	@Bean
 	public MultipartResolver multipartResolver() throws IOException {
-	return new StandardServletMultipartResolver();
+		return new StandardServletMultipartResolver();
+	}
+
+	@Bean
+	public DataSource dataSource() {
+		BasicDataSource ds = new BasicDataSource();
+		ds.setDriverClassName("com.mysql.jdbc.Driver");
+		ds.setUrl("jdbc:mysql://localhost:3306/discoverita");
+		ds.setUsername("root");
+		ds.setPassword("root");
+		ds.setInitialSize(5);
+		ds.setMaxActive(10);
+		return ds;
+	}
+
+	@Bean
+	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+		return new JdbcTemplate(dataSource);
 	}
 }
