@@ -1,5 +1,7 @@
 package discoverita.example.config;
 
+import java.io.File;
+
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
@@ -23,6 +25,12 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected void customizeRegistration(Dynamic registration) {
-		registration.setMultipartConfig(new MultipartConfigElement("/tmp/user/uploads", 2097152, 4194304, 0));
+		File file = new File("D:/uploads");
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		registration.setMultipartConfig(new MultipartConfigElement("E:/uploads", 2097152, 4194304, 0));
 	}
+	
+
 }
