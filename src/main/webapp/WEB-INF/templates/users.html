@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>All users : </title>
+
+</head>
+<body>
+
+
+    <table>
+
+	<caption><h1> All users </h1> </caption>
+      <tr>
+
+        <th>Number</th>
+        
+        <th>FirstName</th>
+        
+        <th>LastName</th>
+
+        <th>UserName</th>
+
+        <th>Password</th>
+
+      </tr>
+
+      <tr th:each="user,iterationStatus  : ${usersList}">
+
+        <td th:text="${iterationStatus.count}">1</td>
+
+        <td th:text="${user.firstName}">No Name</td>
+
+        <td th:text="${user.lastName}">No Name</td>
+
+        <td th:text="${user.userName}">No City</td>
+        
+        <td th:text="${user.password}">No Password</td>
+
+      </tr>
+
+    </table>
+
+</body>
+</html>

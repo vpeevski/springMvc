@@ -32,10 +32,6 @@ public class UsersController {
 	@RequestMapping(value = "/users/{userName}", method = GET)
 	public String userProfile(@PathVariable String userName, ModelMap model) {
 		User user = userRepo.findUserByUseName(userName);
-		if (user == null) {
-			UserNotFoundException unfe = new UserNotFoundException("User with username : " + userName + " not found ");
-			throw unfe;
-		}
 		model.addAttribute("user", user);
 		return "user";
 	}

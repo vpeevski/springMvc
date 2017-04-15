@@ -19,7 +19,7 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
-		this.userName = userName;
+		this.password = password;
 	}
 
 	@NotNull
