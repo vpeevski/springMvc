@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
-import javax.servlet.http.Part;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import discoverita.example.repository.UserRepositoryInterface;
 import discoverita.example.user.User;
@@ -42,7 +41,7 @@ public class RegController {
 	}
 
 	@RequestMapping(value = "/register", method = POST)
-	public String register(@RequestPart("profilePicture") MultipartFile profilePicture, @Valid User user, Errors errors, ModelMap model) {
+	public String register(@RequestPart("profilePicture") MultipartFile profilePicture, @Valid User user, Errors errors, RedirectAttributes model) {
 		if (errors.hasErrors()) {
 			return "registerForm";
 		}
@@ -53,7 +52,12 @@ public class RegController {
 			throw new FileUploadException("Profile picture upload failed : " + fileName);
 		}
 		userRepo.addUser(user);
-		return "redirect:/users/" + user.getUserName();
+		
+		model.addAttribute("username", user.getUserName()); //used as path variable
+		model.addAttribute("firstName", user.getFirstName()); //set as query param with ?
+		
+		model.addFlashAttribute("user", user);// flash atts used for the object to overcome the redirect by storing it to the session
+		return "redirect:/users/{username}"; // thus user input for username is url encoded, better than string concatenation
 	}
 	
 	@ExceptionHandler(FileUploadException.class)

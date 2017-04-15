@@ -31,8 +31,10 @@ public class UsersController {
 
 	@RequestMapping(value = "/users/{userName}", method = GET)
 	public String userProfile(@PathVariable String userName, ModelMap model) {
-		User user = userRepo.findUserByUseName(userName);
-		model.addAttribute("user", user);
+		if (!model.containsAttribute("user")) { //if present use it otherwise get it from db by username
+			User user = userRepo.findUserByUseName(userName);
+			model.addAttribute("user", user);
+		}
 		return "user";
 	}
 
