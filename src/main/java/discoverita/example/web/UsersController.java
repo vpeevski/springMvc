@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import discoverita.example.repository.UserRepositoryInterface;
 import discoverita.example.user.User;
@@ -32,15 +33,20 @@ public class UsersController {
 	public String userProfile(@PathVariable String userName, ModelMap model) {
 		User user = userRepo.findUserByUseName(userName);
 		if (user == null) {
-			throw new UserNotFoundException("User with username : " + userName + " not found ");
+			UserNotFoundException unfe = new UserNotFoundException("User with username : " + userName + " not found ");
+			throw unfe;
 		}
 		model.addAttribute("user", user);
 		return "user";
 	}
 
 	@ExceptionHandler(UserNotFoundException.class)
-	public String handleUserNotFoundException() {
-		return "error/userNotFound";
+	public ModelAndView handleUserNotFoundException(UserNotFoundException unfe) {
+		ModelAndView model = new ModelAndView();
+		model.addObject(new User());
+		model.addObject("userNotFoundMessage", unfe.getMessage());
+		model.setViewName("user");
+		return model;
 	}
 
 }

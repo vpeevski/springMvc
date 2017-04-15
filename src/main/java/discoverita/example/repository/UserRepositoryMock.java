@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import discoverita.example.user.User;
+import discoverita.example.web.UserNotFoundException;
 
 @Component
 public class UserRepositoryMock implements UserRepositoryInterface {
@@ -18,6 +19,10 @@ public class UserRepositoryMock implements UserRepositoryInterface {
 
 	public User findUserByUseName(String userName) {
 		User tempUser = new User ("", "", userName, "");
+		int index = usersList.indexOf(tempUser);
+		if (index < 0) {
+			return null;
+		}
 		return usersList.get(usersList.indexOf(tempUser));
 	}
 
