@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
@@ -108,16 +109,25 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return new StandardServletMultipartResolver();
 	}
 
+//	@Bean
+//	public DataSource dataSource() {
+//		BasicDataSource ds = new BasicDataSource();
+//
+//		ds.setUrl("jdbc:mysql://localhost:3306/discoverita");
+//		ds.setUsername("root");
+//		ds.setPassword("root");
+//		ds.setInitialSize(5);
+//		ds.setMaxActive(10);
+//		return ds;
+//	}
+
 	@Bean
-	public DataSource dataSource() {
-		BasicDataSource ds = new BasicDataSource();
-		
-		ds.setUrl("jdbc:mysql://localhost:3306/discoverita");
-		ds.setUsername("root");
-		ds.setPassword("root");
-		ds.setInitialSize(5);
-		ds.setMaxActive(10);
-		return ds;
+	public JndiObjectFactoryBean dataSource() {
+		JndiObjectFactoryBean jndiObjectFB = new JndiObjectFactoryBean();
+		jndiObjectFB.setJndiName("jdbc/discoverita");
+		jndiObjectFB.setResourceRef(true);
+		jndiObjectFB.setProxyInterface(javax.sql.DataSource.class);
+		return jndiObjectFB;
 	}
 
 	@Bean
