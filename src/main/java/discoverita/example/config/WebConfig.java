@@ -33,7 +33,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
 @EnableWebMvc
-@PropertySource("classpath:app.properties")
+@PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = { "discoverita.example.web", "discoverita.example.repository" })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
