@@ -111,7 +111,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource ds = new BasicDataSource();
-		ds.setDriverClassName("com.mysql.jdbc.Driver");
+		
 		ds.setUrl("jdbc:mysql://localhost:3306/discoverita");
 		ds.setUsername("root");
 		ds.setPassword("root");
