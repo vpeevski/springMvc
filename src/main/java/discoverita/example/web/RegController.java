@@ -47,9 +47,9 @@ public class RegController {
 		}
 		String fileName = profilePicture.getOriginalFilename();
 		try {
-			profilePicture.transferTo(new File("/" + fileName));
+			profilePicture.transferTo(new File(System.getProperty("user.home") + File.separator + "uploads" + File.separator +fileName));
 		} catch (IOException ioe) {
-			throw new FileUploadException("Profile picture upload failed : " + fileName);
+			throw new FileUploadException("Profile picture upload failed : " + fileName, ioe);
 		}
 		userRepo.addUser(user);
 		

@@ -19,7 +19,7 @@ import discoverita.example.web.UserNotFoundException;
 @Primary
 public class JdbcDiscoveritaRepository implements UserRepositoryInterface {
 
-	private static final String SQL_INSERT_USER = "insert into User (FirstName, LastName, UserName, Password) values (?, ?, ?, ?)";
+	private static final String SQL_INSERT_USER = "insert into user (firstname, lastname,username, password) values (?, ?, ?, ?)";
 
 	private static final String SQL_SELECT_USER = "select *  from user where username = ?";
 	

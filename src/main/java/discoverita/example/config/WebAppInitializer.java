@@ -25,11 +25,11 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected void customizeRegistration(Dynamic registration) {
-		File file = new File("D:/uploads");
+		File file = new File(System.getProperty("user.home") + File.separator + "uploads");
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		registration.setMultipartConfig(new MultipartConfigElement("E:/uploads", 2097152, 4194304, 0));
+		registration.setMultipartConfig(new MultipartConfigElement(file.getAbsolutePath(), 2097152, 4194304, 0));
 	}
 	
 
